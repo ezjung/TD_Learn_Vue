@@ -7,27 +7,47 @@
 
     <!-- Local CSS file for styling the application -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Vue.js 3 development version -->
+    <script src="https://unpkg.com/vue@3"></script>
 </head>
 <body>
-    <header>
-        <div class="title">
-            <h1>Title</h1>
-        </div>
-        <nav>
-            <ul>
-                <li>Home</li>
-                <li>About</li>
-                <li>Contact</li>
-            </ul>
-        </nav>
-    </header>
+    <div id="vue-app">
+        <header>
+            <div class="title">
+                <h1>{{ navTitle }}</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>
+        </header>
 
-    <main>
-        <h1>Content goes here!</h1>
-    </main>
+        <main>
+            <h1>Content goes here!</h1>
+        </main>
 
-    <footer>
-        <h4>Footer</h4>
-    </footer>
+        <footer>
+            <h4>{{ footerMessage }}</h4>
+        </footer>        
+    </div>
+
+<!-- Vue Code Start-->
+<script type="text/javascript">
+const app = Vue.createApp({
+    data() {
+        return {
+            navTitle: "Vue Course",
+            footerMessage: "testdriven.io"
+        }
+    }
+})
+const mountedApp = app.mount('#vue-app')
+</script>
+<!-- Vue Code Ends-->
+
 </body>
 </html>
