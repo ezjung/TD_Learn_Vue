@@ -10,6 +10,9 @@
 
     <!-- Vue.js 3 development version -->
     <script src="https://unpkg.com/vue@3"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
     <div id="vue-app">
@@ -22,6 +25,11 @@
                     <li>Home</li>
                     <li>About</li>
                     <li>Contact</li>
+                    <li>
+                        <button @click="toggleSearch">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -33,17 +41,29 @@
             </div>
             <!-- <button @click="changeDisplay">Display Users!</button> -->
 
-            <h1>List of Users</h1>
+            <div class="list-users">
+                <h1>List of Users</h1>
 
-            <!-- <div v-if="!displayUsers">
-                <h4>Users are not being displayed.</h4>
-            </div> -->
-            <!-- <div v-else> -->
-            <ul>
-                <li v-for="(user, id) in users" :key="id">{{ id + 1 }}: {{ user }}</li>
-            </ul>                  
-            <h4>{{ numberOfUsersText }}</h4>
-            <!-- </div> -->
+                <ul>
+                    <li v-for="(user, id) in users" :key="id">{{ id + 1 }}: {{ user }}</li>
+                </ul>                  
+                <h4>{{ numberOfUsersText }}</h4>
+            </div>
+
+            <div class="search-users" v-show="displayUsers">
+                <h1>Search Users</h1>
+                <div class="search-user-input">
+                    <label for="searchInput">Search for: </label>
+                    <input type="text" id="searchInput" v-model="searchName">
+                </div>
+
+                <ul>
+                    <li v-for="(username, idx) in searchResults" :key="idx">{{ username }}</li>
+                </ul>
+
+            </div>
+
+
             
 
         </main>
@@ -67,8 +87,9 @@ const app = Vue.createApp({
                 'Sara',
                 'Garfield'
             ],
-            // displayUsers: false,
-            newUser: ''
+            displayUsers: false,
+            newUser: '',
+            searchName: ''
         }
     },
     computed: {
@@ -80,12 +101,19 @@ const app = Vue.createApp({
             } else {
                 return `There are ${this.users.length} users.`
             }
-        }
+        },
+        searchResults() {
+            if (this.searchName !== '') {
+                return this.users.filter(el => el.toLowerCase().match(this.searchName.toLowerCase()))
+            } else {
+                return ''
+            }
+        } 
     },
     methods: {
-        // changeDisplay() {
-        //     this.displayUsers = !this.displayUsers
-        // },
+        toggleSearch() {
+            this.displayUsers = !this.displayUsers
+        },
         addNewUser() {
             if (this.newUser != '') {
                 
