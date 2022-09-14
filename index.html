@@ -27,12 +27,18 @@
         </header>
 
         <main>
-            <button @click.once="changeShowUsers">Display Users!</button>
+            <button @click="changeShowUsers">Display Users!</button>
 
             <h1>List of Users</h1>
-            <ul v-show="displayUsers">
-                <li v-for="(user, id) in users" :key="id">{{ id + 1 }}: {{ user }}</li>
-            </ul>                
+
+            <div v-if="!displayUsers">
+                <h4>Users are not being displayed.</h4>
+            </div>
+            <div v-else>
+                <ul>
+                    <li v-for="(user, id) in users" :key="id">{{ id + 1 }}: {{ user }}</li>
+                </ul>                  
+            </div>              
 
         </main>
 
