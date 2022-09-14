@@ -27,10 +27,13 @@
         </header>
 
         <main>
+            <button @click.once="changeShowUsers">Display Users!</button>
+
             <h1>List of Users</h1>
-            <ul>
+            <ul v-show="displayUsers">
                 <li v-for="(user, id) in users" :key="id">{{ id + 1 }}: {{ user }}</li>
-            </ul>
+            </ul>                
+
         </main>
 
         <footer>
@@ -51,7 +54,13 @@ const app = Vue.createApp({
                 'Bob',
                 'Sara',
                 'Garfield'
-            ]
+            ],
+            displayUsers: false,
+        }
+    },
+    methods: {
+        changeShowUsers() {
+            this.displayUsers = !this.displayUsers
         }
     }
 })
