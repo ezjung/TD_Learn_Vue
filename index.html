@@ -27,7 +27,7 @@
         </header>
 
         <main>
-            <button @click="changeShowUsers">Display Users!</button>
+            <button @click="changeDisplay">Display Users!</button>
 
             <h1>List of Users</h1>
 
@@ -52,7 +52,7 @@
 const app = Vue.createApp({
     data() {
         return {
-            navTitle: "Vue Course",
+            navTitle: "Vue3 Course",
             footerMessage: "testdriven.io",
             users: [
                 'user1',
@@ -65,7 +65,7 @@ const app = Vue.createApp({
         }
     },
     methods: {
-        changeShowUsers() {
+        changeDisplay() {
             this.displayUsers = !this.displayUsers
         }
     }
