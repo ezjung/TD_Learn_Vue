@@ -27,7 +27,10 @@
         </header>
 
         <main>
-            <h1>Content goes here!</h1>
+            <h1>List of Users</h1>
+            <ul>
+                <li v-for="(user, id) in users" :key="id">{{ id + 1 }}: {{ user }}</li>
+            </ul>
         </main>
 
         <footer>
@@ -41,7 +44,14 @@ const app = Vue.createApp({
     data() {
         return {
             navTitle: "Vue Course",
-            footerMessage: "testdriven.io"
+            footerMessage: "testdriven.io",
+            users: [
+                'user1',
+                'employee17',
+                'Bob',
+                'Sara',
+                'Garfield'
+            ]
         }
     }
 })
