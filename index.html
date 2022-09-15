@@ -45,13 +45,15 @@
                 <h1>List of Users</h1>
 
                 <ul>
-                    <li v-for="(user, id) in users" :key="id">{{ id + 1 }}: {{ user }}</li>
+                    <li v-for="(user, idx) in users" :key="idx" :style="{ color: usersTextColor[idx] }">{{ idx + 1 }}: {{ user }}</li>
                 </ul>                  
                 <h4>{{ numberOfUsersText }}</h4>
             </div>
 
             <div class="search-users" v-show="displayUsers">
-                <h1>Search Users</h1>
+
+                <!-- Class binding via computed property -->
+                <h1 :class="searchTextClass">Search Users</h1>
                 <div class="search-user-input">
                     <label for="searchInput">Search for: </label>
                     <input type="text" id="searchInput" v-model="searchName">
@@ -87,6 +89,7 @@ const app = Vue.createApp({
                 'Sara',
                 'Garfield'
             ],
+            usersTextColor: [],
             displayUsers: false,
             newUser: '',
             searchName: ''
@@ -108,7 +111,14 @@ const app = Vue.createApp({
             } else {
                 return ''
             }
-        } 
+        },
+        searchTextClass() {
+            if (this.searchName !== '') {
+                return 'searchTitleBold'
+            } else {
+                return 'searchTitleNormal'
+            }
+        }
     },
     methods: {
         toggleSearch() {
@@ -116,9 +126,19 @@ const app = Vue.createApp({
         },
         addNewUser() {
             if (this.newUser != '') {
-                
+                // Initilize and fill the color usersTextColor
+                this.usersTextColor = []
+                this.users.forEach(el => this.usersTextColor.push('black'))
                 this.users.push(this.newUser)
+                // Add green color
+                this.usersTextColor.push('darkgreen')
                 this.newUser = ''
+
+                // Add the styling for the new user to highlight the new user only  // NEW!
+                // for (var i = 0; i < this.users.length-1; i++) {              // NEW!
+                //     this.usersTextColor[i] = 'black'                                  // NEW!
+                // }                                                                   // NEW!
+                // this.usersTextColor.push('darkgreen')                               // NEW!                
             }
         }
     }
